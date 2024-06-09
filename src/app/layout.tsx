@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import AuthProvider from "./_providers/AuthProvider";
+import './globals.css';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import AuthProvider from './_providers/AuthProvider';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "Omegle Nepal",
-  description: "Omegele ripoff",
+  title: 'Omegle Nepal',
+  description: 'Omegele ripoff',
 };
 
 export default function RootLayout({
@@ -18,11 +18,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthProvider>
-
-        {children}
-        </AuthProvider>
-        </body>
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }
