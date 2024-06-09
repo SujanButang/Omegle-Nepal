@@ -9,7 +9,7 @@ export default function Home() {
       <Container className="flex w-full py-10 h-full gap-10">
         <div className="flex flex-col h-full gap-10 flex-[1.5]">
           <VideoSection className="flex-1 bg-accent rounded-xl" />
-          <VideoSection className="flex-1 bg-accent rounded-xl" />
+          {/* <VideoSection className="flex-1 bg-accent rounded-xl" /> */}
         </div>
         <div className="w-full h-full flex-1">
           <ChatSection className="bg-accent" />
