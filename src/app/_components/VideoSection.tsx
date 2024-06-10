@@ -1,8 +1,9 @@
 'use client';
 
+import { useSession } from 'next-auth/react';
 import React, { useEffect, useRef, useState } from 'react';
 
-type Props = { className?: string };
+type Props = { className?: string; type: 'local' | 'remote' };
 
 const VideoSection = (props: Props) => {
   const [loading, setLoading] = useState(true);
@@ -12,6 +13,8 @@ const VideoSection = (props: Props) => {
   const openMediaDevices = async (constraints: MediaStreamConstraints) => {
     return await navigator.mediaDevices.getUserMedia(constraints);
   };
+
+  const session = useSession();
 
   useEffect(() => {
     try {
@@ -24,7 +27,7 @@ const VideoSection = (props: Props) => {
         setStream(mediaStream);
         setLoading(false);
       };
-      fetchStream();
+      props.type === 'local' && session && fetchStream();
     } catch (error) {
       console.error('Error accessing media devices.', error);
       // Handle error gracefully, maybe set an error state to display to the user
@@ -42,6 +45,8 @@ const VideoSection = (props: Props) => {
   useEffect(() => {
     if (stream && videoRef.current) {
       videoRef.current.srcObject = stream;
+      videoRef.current.muted = true;
+      videoRef.current.style.transform = 'scaleX(-1)';
     }
   }, [stream]);
 
@@ -52,7 +57,7 @@ const VideoSection = (props: Props) => {
           <div className="w-12 h-12 rounded-full animate-spin border border-solid border-cyan-500 border-t-transparent"></div>
         </div>
       ) : (
-        <video ref={videoRef} preload="auto" autoPlay></video>
+        <video ref={videoRef} preload="auto" autoPlay className="h-full w-full object-cover"></video>
       )}
     </div>
   );
